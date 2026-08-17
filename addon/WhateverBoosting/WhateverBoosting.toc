@@ -1,8 +1,8 @@
-## Interface: 120005
+## Interface: 120100
 ## Title: Whatever Boosting
 ## Notes: Collect M+ character data and export to the Whatever Boosting webapp
 ## Author: Jonas
-## Version: 1.2.1
+## Version: 1.2.2
 ## SavedVariables: WhateverBoostingDB
 
 libs/LibBase64.lua
