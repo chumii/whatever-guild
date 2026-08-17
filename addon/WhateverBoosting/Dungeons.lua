@@ -31,4 +31,13 @@ WB.DUNGEONS = {
     [161]  = "Skyreach",
     [239]  = "Seat of the Triumvirate",
     [402]  = "Algeth'ar Academy",
+    -- Midnight — Season 2
+    [588]  = "Altar of Fangs",
+    [587]  = "Murder Row",
+    [586]  = "Den of Nalorakk",
+    [584]  = "The Blinding Vale",
+    [585]  = "Voidscar Arena",
+    [249]  = "Kings' Rest",
+    [250]  = "Temple of Sethraliss",
+    [399]  = "Ruby Life Pools",
 }
