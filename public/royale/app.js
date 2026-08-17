@@ -330,7 +330,7 @@ load();
 
   function triggerDownload() {
     const a = document.createElement("a");
-    a.href = "WhateverRoyale-v2.0.2.zip";
+    a.href = "WhateverRoyale-2.0.5.zip";
     a.download = "";
     document.body.appendChild(a);
     a.click();
