@@ -20,8 +20,7 @@
 
 WB = WB or {}
 
-local NPC_ID          = 197711        -- Lindormi, Dornogal
-local NPC_NAME        = "Lindormi"    -- for chat messages only
+local NPC_NAME        = "Lindormi"    -- Lindormi, Dornogal — for targeting and chat messages
 local KEYSTONE_ITEM   = 180653        -- Mythic Keystone (stable across seasons)
 local ZONE_MAP_ID     = 2393          -- Lindormi's location map ID (verified 2026-05-08)
 
@@ -51,15 +50,18 @@ local function hasKey()
     return GetItemCount(KEYSTONE_ITEM) > 0
 end
 
-local function targetNpcId()
-    local guid = UnitGUID("target")
-    return guid and tonumber((select(6, strsplit("-", guid)))) or nil
+-- UnitGUID can return a "secret string" when called during PLAYER_TARGET_CHANGED
+-- fired from a protected function (e.g. CameraOrSelectOrMoveStop), causing a
+-- taint error on strsplit. UnitName is not secret and sufficient here when
+-- combined with the zone check.
+local function isTargetNpc()
+    return UnitName("target") == NPC_NAME
 end
 
 local function shouldShow()
     if not enabled then return false end
     if not hasKey() then return false end
-    if targetNpcId() ~= NPC_ID then return false end
+    if not isTargetNpc() then return false end
     local mapID = C_Map.GetBestMapForUnit("player")
     return (mapID == ZONE_MAP_ID)
 end
@@ -267,7 +269,7 @@ ev:SetScript("OnEvent", function(_, event, arg1)
         refresh()
 
     elseif event == "GOSSIP_SHOW" then
-        if targetNpcId() ~= NPC_ID then return end
+        if not isTargetNpc() then return end
 
         -- Refresh keyLevel from game state — may lag behind actual level when
         -- scrolling faster than BAG_UPDATE_DELAYED fires.
